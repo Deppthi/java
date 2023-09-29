@@ -1,0 +1,9 @@
+public class TrimWhitespace {
+    public static void main(String[] args) {
+        String inputString = "   This is a sample string with whitespace.   ";
+
+        String trimmedString = inputString.trim();
+        System.out.println("Original String: \"" + inputString + "\"");
+        System.out.println("Trimmed String: \"" + trimmedString + "\"");
+    }
+}
