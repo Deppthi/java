@@ -1,0 +1,42 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.StreamTokenizer;
+import java.io.StringReader;
+
+public class TextFileStatistics {
+    public static void main(String[] args) {
+        // Replace "your_file_path.txt" with the actual file path to your text file
+        String filePath = "your_file_path.txt";
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            int wordCount = 0;
+            int charCount = 0;
+            int lineCount = 0;
+
+            while ((line = reader.readLine()) != null) {
+                lineCount++;
+
+                // Use a StreamTokenizer to count words and characters in each line
+                StreamTokenizer tokenizer = new StreamTokenizer(new StringReader(line));
+                tokenizer.wordChars('a', 'z');
+                tokenizer.wordChars('A', 'Z');
+                tokenizer.ordinaryChar(' '); // Treat spaces as word separators
+
+                while (tokenizer.nextToken() != StreamTokenizer.TT_EOF) {
+                    if (tokenizer.ttype == StreamTokenizer.TT_WORD) {
+                        wordCount++;
+                        charCount += tokenizer.sval.length();
+                    }
+                }
+            }
+
+            System.out.println("Word count: " + wordCount);
+            System.out.println("Character count: " + charCount);
+            System.out.println("Line count: " + lineCount);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
