@@ -1,0 +1,72 @@
+import java.applet.Applet;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+public class BouncingBallApplet extends Applet implements Runnable {
+    private int x, y;        // Current position of the ball
+    private int radius = 20; // Radius of the ball
+    private int dx = 1;      // Change in x-coordinate
+    private int dy = 1;      // Change in y-coordinate
+    private boolean isBouncing = false;
+
+    @Override
+    public void init() {
+        // Set the initial position of the ball to the center of the applet
+        x = getWidth() / 2;
+        y = getHeight() / 2;
+
+        // Set the background color
+        setBackground(Color.white);
+
+        // Add a mouse listener to start the ball when clicked
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (!isBouncing) {
+                    isBouncing = true;
+                    Thread thread = new Thread(BouncingBallApplet.this);
+                    thread.start();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void paint(Graphics g) {
+        // Clear the applet
+        g.clearRect(0, 0, getWidth(), getHeight());
+
+        // Draw the blue ball
+        g.setColor(Color.blue);
+        g.fillOval(x - radius, y - radius, 2 * radius, 2 * radius);
+    }
+
+    @Override
+    public void run() {
+        while (isBouncing) {
+            // Update the position of the ball
+            x += dx;
+            y += dy;
+
+            // Check if the ball hits the edges and reverse direction if needed
+            if (x - radius <= 0 || x + radius >= getWidth()) {
+                dx = -dx; // Reverse direction horizontally
+            }
+            if (y - radius <= 0 || y + radius >= getHeight()) {
+                dy = -dy; // Reverse direction vertically
+            }
+
+            // Repaint the applet
+            repaint();
+
+            // Sleep for a short interval to control the animation speed
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
