@@ -1,42 +1,92 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.StreamTokenizer;
-import java.io.StringReader;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Scanner;
 
-public class TextFileStatistics {
+public class SavingsBankApplication {
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/your_database_name";
+    private static final String DB_USER = "your_username";
+    private static final String DB_PASSWORD = "your_password";
+
     public static void main(String[] args) {
-        // Replace "your_file_path.txt" with the actual file path to your text file
-        String filePath = "your_file_path.txt";
+        try {
+            // Establish the database connection
+            Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            int wordCount = 0;
-            int charCount = 0;
-            int lineCount = 0;
+            // Create a Scanner for user input
+            Scanner scanner = new Scanner(System.in);
 
-            while ((line = reader.readLine()) != null) {
-                lineCount++;
+            // Main menu
+            while (true) {
+                System.out.println("Savings Bank Application");
+                System.out.println("1. Deposit");
+                System.out.println("2. Withdraw");
+                System.out.println("3. Exit");
+                System.out.print("Select an option (1/2/3): ");
+                int choice = scanner.nextInt();
 
-                // Use a StreamTokenizer to count words and characters in each line
-                StreamTokenizer tokenizer = new StreamTokenizer(new StringReader(line));
-                tokenizer.wordChars('a', 'z');
-                tokenizer.wordChars('A', 'Z');
-                tokenizer.ordinaryChar(' '); // Treat spaces as word separators
-
-                while (tokenizer.nextToken() != StreamTokenizer.TT_EOF) {
-                    if (tokenizer.ttype == StreamTokenizer.TT_WORD) {
-                        wordCount++;
-                        charCount += tokenizer.sval.length();
-                    }
+                switch (choice) {
+                    case 1:
+                        depositFunds(connection, scanner);
+                        break;
+                    case 2:
+                        withdrawFunds(connection, scanner);
+                        break;
+                    case 3:
+                        System.out.println("Exiting the application.");
+                        connection.close();
+                        scanner.close();
+                        return;
+                    default:
+                        System.out.println("Invalid choice. Please select a valid option.");
                 }
             }
-
-            System.out.println("Word count: " + wordCount);
-            System.out.println("Character count: " + charCount);
-            System.out.println("Line count: " + lineCount);
-        } catch (IOException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    private static void depositFunds(Connection connection, Scanner scanner) throws SQLException {
+        System.out.print("Enter Account Number: ");
+        int accNumber = scanner.nextInt();
+        System.out.print("Enter Amount to Deposit: ");
+        double amount = scanner.nextDouble();
+
+        // Perform the deposit operation in the database
+        String depositQuery = "UPDATE your_table_name SET Amount = Amount + ? WHERE Accn = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(depositQuery)) {
+            preparedStatement.setDouble(1, amount);
+            preparedStatement.setInt(2, accNumber);
+
+            int rowsAffected = preparedStatement.executeUpdate();
+            if (rowsAffected == 1) {
+                System.out.println("Deposit successful.");
+            } else {
+                System.out.println("Account not found.");
+            }
+        }
+    }
+
+    private static void withdrawFunds(Connection connection, Scanner scanner) throws SQLException {
+        System.out.print("Enter Account Number: ");
+        int accNumber = scanner.nextInt();
+        System.out.print("Enter Amount to Withdraw: ");
+        double amount = scanner.nextDouble();
+
+        // Perform the withdraw operation in the database
+        String withdrawQuery = "UPDATE your_table_name SET Amount = Amount - ? WHERE Accn = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(withdrawQuery)) {
+            preparedStatement.setDouble(1, amount);
+            preparedStatement.setInt(2, accNumber);
+
+            int rowsAffected = preparedStatement.executeUpdate();
+            if (rowsAffected == 1) {
+                System.out.println("Withdrawal successful.");
+            } else {
+                System.out.println("Account not found or insufficient balance.");
+            }
         }
     }
 }
