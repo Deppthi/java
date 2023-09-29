@@ -1,0 +1,13 @@
+public class StringLength {
+    public static void main(String[] args) {
+        // Input string
+        String inputString = "This is a sample string.";
+
+        // Get the length of the string
+        int length = inputString.length();
+
+        // Print the length of the string
+        System.out.println("Input String: " + inputString);
+        System.out.println("Length of the String: " + length);
+    }
+}
