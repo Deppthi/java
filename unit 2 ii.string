@@ -1,0 +1,26 @@
+import java.util.Scanner;
+
+public class StringEndsWithCheck {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Input the main string
+        System.out.print("Enter the main string: ");
+        String mainString = scanner.nextLine();
+
+        // Input the substring to check for at the end
+        System.out.print("Enter the substring to check for at the end: ");
+        String substring = scanner.nextLine();
+
+        // Check if the main string ends with the specified substring
+        boolean endsWith = mainString.endsWith(substring);
+
+        if (endsWith) {
+            System.out.println("The main string ends with the specified substring.");
+        } else {
+            System.out.println("The main string does not end with the specified substring.");
+        }
+
+        scanner.close();
+    }
+}
