@@ -1,0 +1,18 @@
+import java.util.Date;
+import java.text.SimpleDateFormat;
+
+public class CurrentDateTime {
+    public static void main(String[] args) {
+        // Get the current date and time
+        Date currentDate = new Date();
+
+        // Create a SimpleDateFormat object to specify the desired format
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        // Format the date and time
+        String formattedDateTime = dateFormat.format(currentDate);
+
+        // Print the formatted date and time
+        System.out.println("Current Date and Time: " + formattedDateTime);
+    }
+}
