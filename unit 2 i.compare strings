@@ -1,0 +1,26 @@
+import java.util.Scanner;
+
+public class StringComparisonIgnoringCase {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Input two strings
+        System.out.print("Enter the first string: ");
+        String str1 = scanner.nextLine();
+        System.out.print("Enter the second string: ");
+        String str2 = scanner.nextLine();
+
+        // Compare the strings lexicographically ignoring case differences
+        int result = str1.compareToIgnoreCase(str2);
+
+        if (result == 0) {
+            System.out.println("The strings are equal.");
+        } else if (result < 0) {
+            System.out.println("The first string comes before the second string in lexicographical order.");
+        } else {
+            System.out.println("The second string comes before the first string in lexicographical order.");
+        }
+
+        scanner.close();
+    }
+}
