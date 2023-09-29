@@ -1,0 +1,16 @@
+public class StringComparison {
+    public static void main(String[] args) {
+        // Sample string
+        String str1 = "The quick brown fox jumps over the lazy dog.";
+        String str2 = "The quick brown fox jumps over the lazy dog.";
+
+        // Check if the strings contain the same data
+        boolean areEqual = str1.equals(str2);
+
+        if (areEqual) {
+            System.out.println("The two strings contain the same data.");
+        } else {
+            System.out.println("The two strings do not contain the same data.");
+        }
+    }
+}
