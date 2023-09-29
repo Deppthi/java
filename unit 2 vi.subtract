@@ -1,0 +1,15 @@
+public class SubstringExtraction {
+    public static void main(String[] args) {
+        String inputString = "This is a sample string.";
+        int start = 5; 
+        int end = 12;  
+        if (start >= 0 && start <= inputString.length() && end >= 0 && end <= inputString.length()) {
+            // Extract the substring
+            String substring = inputString.substring(start, end + 1);
+            System.out.println("Original String: " + inputString);
+            System.out.println("Extracted Substring: " + substring);
+        } else {
+            System.out.println("Invalid positions. Ensure that the positions are within the string length.");
+        }
+    }
+}
