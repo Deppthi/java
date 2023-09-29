@@ -1,0 +1,79 @@
+import java.awt.*;
+import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class StudentBioDataForm extends Frame {
+    private TextField nameField, rollNoField, ageField, addressField;
+    private Button submitButton;
+
+    public StudentBioDataForm() {
+        setTitle("Student Bio-data Form");
+        setSize(400, 300);
+        setLayout(new GridLayout(5, 2));
+        
+        Label nameLabel = new Label("Name:");
+        nameField = new TextField();
+        Label rollNoLabel = new Label("Roll No:");
+        rollNoField = new TextField();
+        Label ageLabel = new Label("Age:");
+        ageField = new TextField();
+        Label addressLabel = new Label("Address:");
+        addressField = new TextField();
+        
+        submitButton = new Button("Submit");
+        submitButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                saveDataToDatabase();
+            }
+        });
+
+        add(nameLabel);
+        add(nameField);
+        add(rollNoLabel);
+        add(rollNoField);
+        add(ageLabel);
+        add(ageField);
+        add(addressLabel);
+        add(addressField);
+        add(new Label()); // Empty label for spacing
+        add(submitButton);
+        
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent we) {
+                dispose();
+            }
+        });
+    }
+
+    private void saveDataToDatabase() {
+        String name = nameField.getText();
+        String rollNo = rollNoField.getText();
+        String age = ageField.getText();
+        String address = addressField.getText();
+
+        try {
+            Class.forName("org.sqlite.JDBC");
+            Connection connection = DriverManager.getConnection("jdbc:sqlite:student.db");
+            String sql = "INSERT INTO student (name, rollno, age, address) VALUES (?, ?, ?, ?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, rollNo);
+            preparedStatement.setString(3, age);
+            preparedStatement.setString(4, address);
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+            connection.close();
+            System.out.println("Data saved to the database.");
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) {
+        StudentBioDataForm form = new StudentBioDataForm();
+        form.setVisible(true);
+    }
+}
