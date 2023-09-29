@@ -1,0 +1,9 @@
+public class ReplaceSubstring {
+    public static void main(String[] args) {
+        String inputString = "The quick brown fox jumps over the lazy fox.";
+        String replacedString = inputString.replaceAll("fox", "cat");
+
+        System.out.println("Original String: " + inputString);
+        System.out.println("Replaced String: " + replacedString);
+    }
+}
