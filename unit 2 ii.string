@@ -5,7 +5,7 @@ public class StringEndsWithCheck {
         Scanner scanner = new Scanner(System.in);
 
         // Input the main string
-        System.out.print("Enter the main string: ");
+        System.out.print("Enter the main string: "); 
         String mainString = scanner.nextLine();
 
         // Input the substring to check for at the end
