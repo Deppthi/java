@@ -8,7 +8,7 @@ public class BouncingBallApplet extends Applet implements Runnable {
     private int x, y;        // Current position of the ball
     private int radius = 20; // Radius of the ball
     private int dx = 1;      // Change in x-coordinate
-    private int dy = 1;      // Change in y-coordinate
+    private int dy = 1;      // Change in y-coordinate 
     private boolean isBouncing = false;
 
     @Override
