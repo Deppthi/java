@@ -2,7 +2,7 @@ public class Account {
     private double balance;
     private double interestRate = 0.03; // 3% interest rate
 
-    public Account(double initialBalance) {
+    public Account(double initialBalance) { 
         if (initialBalance >= 0) {
             this.balance = initialBalance;
         } else {
