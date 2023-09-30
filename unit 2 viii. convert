@@ -7,6 +7,6 @@ public class ConvertToLowerCase {
 
         // Print the lowercase string
         System.out.println("Original String: " + inputString);
-        System.out.println("Lowercase String: " + lowercaseString);
+        System.out.println("Lowercase String: " + lowercaseString); 
     }
 }
