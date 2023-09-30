@@ -1,6 +1,6 @@
 public class AlphabetIndex {
     public static void main(String[] args) {
-        char[] lowercaseAlphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+        char[] lowercaseAlphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray(); 
         char[] uppercaseAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
 
         System.out.println("Index of lowercase alphabet characters:");
