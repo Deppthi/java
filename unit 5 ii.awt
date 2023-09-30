@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class StudentBioDataForm extends Frame {
-    private TextField nameField, rollNoField, ageField, addressField;
+    private TextField nameField, rollNoField, ageField, addressField; 
     private Button submitButton;
 
     public StudentBioDataForm() {
