@@ -1,33 +1,14 @@
-import java.util.*;
-import java.io.*;
-public class reverse
-{
-	public static void main(String[] args)
-	{
-	    
-	    String a,b="";
-	    char c;
-	    int d=0,i;
-	    try
-	    {
-	        Scanner sc=new Scanner(System.in);
-	        System.out.println("Enter the string:");
-	        a=sc.next();
-	        d=a.length();
-	        
-	        for(i=d-1;i>=0;i--)
-	        {
-	            b=b+a.charAt(i);
-	            
-	        }
-	        
-	        System.out.println("The Reverse of the string is:"+ b);
-	        
-	    } 
-	    catch(Exception e)
-	    {
-	        System.out.println("Enter only string");
-	    }
-		
-	}
+import java.util.Scanner;
+ public class reverse {
+ public static void main(String[] args){ 
+ String str; 
+ char ch;
+ Scanner sc=new Scanner(System.in);
+ System.out.print("Enter a string : "); 
+ str=sc.nextLine(); 
+ System.out.println("Reverse of a String '"+str+"' is :");
+ for(int j=str.length();j>0;--j) { 
+ System.out.print(str.charAt(j-1));
+ }
 }
+ }
